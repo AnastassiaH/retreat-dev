@@ -2,6 +2,7 @@
 
 import { useSearchParams, useRouter } from "next/navigation";
 import { useState } from "react";
+import Link from "next/link";
 
 export default function ReviewPage() {
   const router = useRouter();
@@ -11,9 +12,8 @@ export default function ReviewPage() {
   const step = parseInt(stepParam || "1");
 
   const [inputValue, setInputValue] = useState("");
-
   const goToStep = (newStep) => {
-    router.push(`/review?step=${newStep}`);
+    router.push(`/review/?step=${newStep}`);
   };
 
   return (
@@ -29,13 +29,19 @@ export default function ReviewPage() {
       />
 
       <div className="space-x-2">
-        <button
+        {/* <button
           onClick={() => goToStep(step - 1)}
           disabled={step <= 1}
           className="bg-gray-700 px-4 py-2 rounded disabled:opacity-50"
         >
           Prev
-        </button>
+        </button> */}
+        <Link
+          href={`/review?step=${step - 1}`}
+          className="bg-gray-700 px-4 py-2 rounded disabled:opacity-50"
+        >
+          Prev
+        </Link>
 
         <button
           onClick={() => goToStep(step + 1)}
@@ -43,6 +49,19 @@ export default function ReviewPage() {
         >
           Next
         </button>
+
+        <button
+          onClick={() => goToStep(3)}
+          className="bg-blue-500 text-white px-4 py-2 rounded"
+        >
+          Step 3
+        </button>
+        {/* <Link
+          href={`/review?step=${step + 1}`}
+          className="bg-gray-700 px-4 py-2 rounded disabled:opacity-50"
+        >
+          Next
+        </Link> */}
       </div>
     </div>
   );
